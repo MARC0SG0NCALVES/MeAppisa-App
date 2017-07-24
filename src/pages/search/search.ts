@@ -31,10 +31,13 @@ export class SearchPage {
       return;
     }
     this.pack.searchNpm(val).subscribe((data) => {
+      this.search.length = 0;
       data.forEach((element) => {
         this.packages.forEach((pack) => {
           if (element.name === pack.name) {
-            element['color'] = 'blue';
+            const atualizado = pack.version === element.version;
+            element['color'] = atualizado ? 'blue' : 'red';
+            element['myVersion'] = pack.version;
           }
         });
         this.search.push(element);

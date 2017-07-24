@@ -14,6 +14,6 @@ export class PackageDetailPage {
 
   constructor(public navCtrl: NavController, public pack: Packages, navParams: NavParams) {
     this.item = navParams.get('pack');
-    this.pack.getPackageDetails(this.item.name).subscribe((data) => this.package = data);
+    this.pack.getPackageDetails(this.item.name).subscribe((data) => this.package = new PackageDetail(data));
   }
 }

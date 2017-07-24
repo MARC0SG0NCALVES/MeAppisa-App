@@ -12,10 +12,10 @@ import { TranslateService } from '@ngx-translate/core';
  *
  */
 @Component({
-  selector: 'page-settings',
-  templateUrl: 'settings.html'
+  selector: 'page-installed',
+  templateUrl: 'installed.html'
 })
-export class SettingsPage {
+export class InstalledPage {
   // Our local settings object
   options: any;
 
@@ -29,10 +29,10 @@ export class SettingsPage {
   };
 
   page: string = 'main';
-  pageTitleKey: string = 'SETTINGS_TITLE';
+  pageTitleKey: string = 'INSTALLED_TITLE';
   pageTitle: string;
 
-  subSettings: any = SettingsPage;
+  subSettings: any = InstalledPage;
 
   constructor(public navCtrl: NavController,
     public settings: Settings,

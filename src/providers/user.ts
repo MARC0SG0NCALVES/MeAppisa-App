@@ -1,6 +1,7 @@
 import { Observable } from 'rxjs/Rx';
 import { Injectable } from '@angular/core';
 import { Response, Http } from '@angular/http';
+import { Storage } from '@ionic/storage';
 import { Api } from './api';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
@@ -8,7 +9,15 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class User {
 
-  constructor(public http: Http, public api: Api) { }
+  public id: any;
+  public token: any;
+
+  constructor(public http: Http, public api: Api, public storage: Storage) {
+    this.storage.get('_id')
+      .then((id) => this.id = id);
+    this.storage.get('_access_token')
+      .then((token) => this.token = token);
+  }
 
   public login(account: { email: string, password: string }): Observable<Response> {
     const callback = this.api.post('Developers/login', account).share();
@@ -28,19 +37,14 @@ export class User {
     return callback;
   }
 
-  public id() {
-    return localStorage.getItem('_id');
-  };
-  public token() {
-    return localStorage.getItem('_access_token');
-  };
-
   public logout() {
-    localStorage.clear();
+    this.storage.clear();
   }
 
   public loggedIn(resp) {
-    localStorage.setItem('_id', resp.userId);
-    localStorage.setItem('_access_token', resp.id);
+    this.storage.set('_id', resp.userId);
+      this.id = resp.userId;
+    this.storage.set('_access_token', resp.id);
+      this.token = resp.id;
   }
 }

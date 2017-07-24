@@ -26,12 +26,12 @@ export class Packages {
   }
 
   public getAll(): Observable<Array<Package>> {
-    return this.api.get('Developers/' + this.user.id() + '/package', { access_token: this.user.token() })
+    return this.api.get('Developers/' + this.user.id + '/package', { access_token: this.user.token })
       .map(resp => this.makePackageArray(resp.json()));
   }
 
   public getUpdates(): Observable<Array<PackageUpdated>> {
-    return this.api.get('Developers/' + this.user.id() + '/getPackagesToUpdate', { access_token: this.user.token() })
+    return this.api.get('Developers/' + this.user.id + '/getToUpdated', { access_token: this.user.token })
       .map(resp => this.makePackageUpdatedArray(resp.json()));
   }
 

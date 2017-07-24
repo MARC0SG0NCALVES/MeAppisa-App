@@ -10,10 +10,12 @@
 <ion-content>
   <ion-searchbar (ionInput)="getItems($event)" placeholder="{{ 'SEARCH_PLACEHOLDER' | translate }}"></ion-searchbar>
   <ion-list no-lines>
-    <button ion-item (click)="openItem(item)" *ngFor="let item of currentPackages">
-      <ion-note item-start *ngIf="item.version">{{item.version}}</ion-note>
+    <button ion-item (click)="openItem(item)" *ngFor="let item of search">
+      <ion-note item-start>{{item.version}}</ion-note>
       <h2>{{item.name}}</h2>
       <p>{{item.description}}</p>
+      <ion-note item-end style="color: blue;" *ngIf="item.color === 'blue'">{{item.version}}</ion-note>
+      <ion-note item-end style="color: red;" *ngIf="item.color === 'red'">{{item.version}}</ion-note>
     </button>
   </ion-list>
 </ion-content>

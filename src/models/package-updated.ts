@@ -5,7 +5,6 @@ export class PackageUpdated {
     public oldVersion: string;
 
     constructor(obj: any) {
-        console.log(obj);
         if (obj) {
             this.name = obj.hasOwnProperty('name') ? obj.name : '';
             this.newVersion = obj.hasOwnProperty('newVersion') ? obj.newVersion : '';

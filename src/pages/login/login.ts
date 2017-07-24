@@ -27,13 +27,13 @@ export class LoginPage {
 
     this.translateService.get('LOGIN_ERROR').subscribe((value) => {
       this.loginErrorString = value;
-    })
+    });
   }
 
   public doLogin() {
     this.user.login(this.account).subscribe(
       (resp) => {
-        this.navCtrl.push(MainPage);
+        this.navCtrl.setRoot(MainPage);
       },
       (err) => {
         let toast = this.toastCtrl.create({

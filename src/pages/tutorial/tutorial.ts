@@ -4,6 +4,7 @@ import { MenuController, NavController } from 'ionic-angular';
 import { WelcomePage } from '../welcome/welcome';
 
 import { TranslateService } from '@ngx-translate/core';
+import { Settings } from "../../providers/providers";
 
 
 
@@ -21,7 +22,17 @@ export class TutorialPage {
   slides: Slide[];
   showSkip = true;
 
-  constructor(public navCtrl: NavController, public menu: MenuController, translate: TranslateService) {
+  constructor(public navCtrl: NavController, public settings: Settings, public menu: MenuController, translate: TranslateService) {
+    this.settings.getValue('firstAccess')
+      .then((data) => {
+        if (data) {
+          this.settings.setValue('firstAccess', 'false');
+        } else {
+          this.startApp();
+        }
+      })
+      .catch((erro) => console.log(erro));
+
     translate.get(["TUTORIAL_SLIDE1_TITLE",
       "TUTORIAL_SLIDE1_DESCRIPTION",
       "TUTORIAL_SLIDE2_TITLE",
@@ -30,7 +41,6 @@ export class TutorialPage {
       "TUTORIAL_SLIDE3_DESCRIPTION",
     ]).subscribe(
       (values) => {
-        console.log('Loaded values', values);
         this.slides = [
           {
             title: values.TUTORIAL_SLIDE1_TITLE,
