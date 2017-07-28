@@ -21,10 +21,14 @@ export class SearchPage {
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public pack: Packages, http: Http) {
+    this.getInstalledPackages();
+  }
+
+  public getInstalledPackages() {
     this.pack.getAll().subscribe((data) => this.packages = data);
   }
 
-  public getItems(ev) {
+  public getPackages(ev) {
     let val = ev.target.value;
     if (!val || !val.trim()) {
       this.search = new Array<Package>();
@@ -45,9 +49,12 @@ export class SearchPage {
     });
   }
 
-  public openItem(pack: Package) {
+  public packageDetail(pack: Package) {
     this.navCtrl.push(PackageDetailPage, { pack: pack });
   }
 
 
+  public installPackage(pack: Package) {
+    this.pack.add({ name: pack.name, version: pack.version }).subscribe(() => this.getInstalledPackages());
+  }
 }

@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs/Rx';
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 import { Api } from './api';
@@ -35,8 +35,8 @@ export class Packages {
       .map(resp => this.makePackageUpdatedArray(resp.json()));
   }
 
-  public add(pack: Package) {
-    this.api.post('Developer/' + this.user.id + '/Package', pack)
+  public add(pack: { name: string, version: string }): Observable<Response> {
+    return this.api.post('Developer/' + this.user.id + '/package?' + 'access_token=' + this.user.token, pack, { method: 'POST' } as any);
   }
 
   public delete(pack: Package) {

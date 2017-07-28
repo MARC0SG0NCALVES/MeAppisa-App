@@ -8,14 +8,22 @@
 
 
 <ion-content>
-  <ion-searchbar (ionInput)="getItems($event)" placeholder="{{ 'SEARCH_PLACEHOLDER' | translate }}"></ion-searchbar>
+  <ion-searchbar (ionInput)="getPackages($event)" placeholder="{{ 'SEARCH_PLACEHOLDER' | translate }}"></ion-searchbar>
   <ion-list no-lines>
-    <button ion-item (click)="openItem(item)" *ngFor="let item of search">
-      <ion-note item-start>{{item.version}}</ion-note>
-      <h2>{{item.name}}</h2>
-      <p>{{item.description}}</p>
-      <ion-note item-end style="color: blue;" *ngIf="item.color === 'blue'">{{item.version}}</ion-note>
-      <ion-note item-end style="color: red;" *ngIf="item.color === 'red'">{{item.version}}</ion-note>
-    </button>
+    <ion-item-sliding *ngFor="let item of search">
+      <button ion-item (click)="packageDetail(item)">
+        <ion-note item-start>{{item.version}}</ion-note>
+        <h2>{{item.name}}</h2>
+        <p>{{item.description}}</p>
+        <ion-note item-end style="color: blue;" *ngIf="item.color === 'blue'">{{item.version}}</ion-note>
+        <ion-note item-end style="color: red;" *ngIf="item.color === 'red'">{{item.version}}</ion-note>
+      </button>
+
+      <ion-item-options>
+        <button ion-button color="secondary" (click)="installPackage(item)">
+          {{ 'UPDATE_BUTTON' | translate }}
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
   </ion-list>
 </ion-content>
